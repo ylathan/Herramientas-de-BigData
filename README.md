@@ -89,13 +89,13 @@ ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar e
 4) SQL
 La mejora en la velocidad de consulta que puede proporcionar un índice tiene el costo del procesamiento adicional para crear el índice y el espacio en disco para almacenar las referencias del índice. Se recomienda que los índices se basen en las columnas que utiliza en las condiciones de filtrado. El índice en la tabla puede degradar su rendimiento en caso de que no los esté utilizando. Crear índices en alguna de las tablas cargadas y probar los resultados:
 
-Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas son sin agregar los indices.
+Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas se realizan antes de agregar los indices.
 
     SELECT IdProducto, sum(Precio*Cantidad) FROM venta GROUP BY IdProducto;
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/bf2d0e48-e53f-49dd-bcf9-21b11121fa6a)
 
-    SELECT Fecha,sum(Cantidad) FROM compra;
-![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/cc4a897b-26d0-4425-b1fe-4d70f06b05a2)
+    SELECT Fecha,sum(Cantidad) FROM compra GROUP BY Fecha;
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/0829944a-0e44-4e14-844a-a36d3fef6de7)
 
     SELECT cIdProveedor,p.Nombre FROM compra c JOIN proveedor p USING (IdProveedor);
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/6e5f1788-3e3f-4df3-bbb1-f970fdea6c3d)
@@ -103,19 +103,8 @@ Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas co
 
 Insertamos los indices
 
-        CREATE INDEX index_name
-         ON TABLE base_table_name (col_name, ...)
-         AS index_type
-         [WITH DEFERRED REBUILD]
-         [IDXPROPERTIES (property_name=property_value, ...)]
-         [IN TABLE index_table_name]
-         [ [ ROW FORMAT ...] STORED AS ...
-         | STORED BY ... ]
-         [LOCATION hdfs_path]
-         [TBLPROPERTIES (...)]
-         [COMMENT "index comment"];
-
-         CREATE INDEX index_venta_producto ON TABLE venta(IdProducto) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+         CREATE INDEX index_Fecha_compra ON TABLE venta(Fecha) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+         
 
 
 
