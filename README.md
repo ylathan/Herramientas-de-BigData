@@ -1,7 +1,7 @@
-# Herramientas-de-BigData
+# Herramientas_de_BigData
 Entorno Docker con Hadoop, Spark y Hive
 
-Para implementar ejecute cada script por separado en tercer script va ir cambiando conforme cambiemos de formato.
+Implementar y ejecutar cada script por separado el tercer script va ir cambiando conforme cambiemos de formato.
 
     git clone https://github.com/lopezdar222/herramientas_big_data
     cd herramientas_big_data
@@ -9,7 +9,7 @@ Para implementar ejecute cada script por separado en tercer script va ir cambian
 
 1) HDFS
 
-       sudo docker-compose -f docker-compose-vX.yml up -d
+       sudo docker-compose -f docker-compose-v1.yml up -d
    
 Creamos el contenedor llamado (namenode) y entramos.
         
