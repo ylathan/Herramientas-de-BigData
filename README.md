@@ -73,7 +73,7 @@ Para comprobar que cargo correctamente la base de datos entramos a hive y ejecut
 
 3) Formatos de Almacenamiento
 
-       sudo docker-compose -f docker-compose-v3.yml up -d
+       sudo docker-compose -f docker-compose-v2.yml up -d
 El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
         
         sudo docker cp ./Paso03.hql hive-server:/opt/
@@ -85,6 +85,39 @@ ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar e
        exit
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/137fdd60-9f2c-433b-b6d3-65ea8083e65a)
+
+4) SQL
+La mejora en la velocidad de consulta que puede proporcionar un índice tiene el costo del procesamiento adicional para crear el índice y el espacio en disco para almacenar las referencias del índice. Se recomienda que los índices se basen en las columnas que utiliza en las condiciones de filtrado. El índice en la tabla puede degradar su rendimiento en caso de que no los esté utilizando. Crear índices en alguna de las tablas cargadas y probar los resultados:
+
+Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas son sin agregar los indices.
+
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/2d222eae-fb9a-4e02-abb4-2fb2bce169ce)
+Tiempo 7.088seg
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/adcc6b8c-5c14-479e-888e-a6aa926ee7f3)
+Tiempo 6.268seg
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/9dd236c8-c36c-46ee-9116-c6718105f90b)
+Tiempo 135.278seg
+
+Insertamos los indices
+
+        CREATE INDEX index_name
+         ON TABLE base_table_name (col_name, ...)
+         AS index_type
+         [WITH DEFERRED REBUILD]
+         [IDXPROPERTIES (property_name=property_value, ...)]
+         [IN TABLE index_table_name]
+         [ [ ROW FORMAT ...] STORED AS ...
+         | STORED BY ... ]
+         [LOCATION hdfs_path]
+         [TBLPROPERTIES (...)]
+         [COMMENT "index comment"];
+
+         CREATE INDEX index_venta_producto ON TABLE venta(IdProducto) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+
+
+
+
+
 
 
 
