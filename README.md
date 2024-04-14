@@ -8,7 +8,7 @@ Para implementar ejecute cada script por separado en tercer script va ir cambian
     sudo docker-compose -f docker-compose-vX.yml up -d
 
 1) HDFS
-   
+
        sudo docker-compose -f docker-compose-vX.yml up -d
    
 Creamos el contenedor llamado (namenode) y entramos.
@@ -69,7 +69,7 @@ El comando copia el archivo 'Paso02.hql' desde tu sistema de archivos local al d
 
 Para comprobar que cargo correctamente la base de datos entramos a hive y ejecutamos una query.
 
-![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/e2bd671f-a2bd-4b5e-a4a3-7999337745da)
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/254ed713-c805-4fca-bbc9-ac073f1f5f04)
 
 
 
