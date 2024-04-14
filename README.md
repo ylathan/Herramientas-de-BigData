@@ -91,12 +91,15 @@ La mejora en la velocidad de consulta que puede proporcionar un índice tiene el
 
 Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas son sin agregar los indices.
 
-![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/2d222eae-fb9a-4e02-abb4-2fb2bce169ce)
-Tiempo 7.088seg
-![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/adcc6b8c-5c14-479e-888e-a6aa926ee7f3)
-Tiempo 6.268seg
-![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/9dd236c8-c36c-46ee-9116-c6718105f90b)
-Tiempo 135.278seg
+    SELECT IdProducto, sum(Precio*Cantidad) FROM venta GROUP BY IdProducto;
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/bf2d0e48-e53f-49dd-bcf9-21b11121fa6a)
+
+    SELECT Fecha,sum(Cantidad) FROM compra;
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/cc4a897b-26d0-4425-b1fe-4d70f06b05a2)
+
+    SELECT cIdProveedor,p.Nombre FROM compra c JOIN proveedor p USING (IdProveedor);
+![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/6e5f1788-3e3f-4df3-bbb1-f970fdea6c3d)
+
 
 Insertamos los indices
 
