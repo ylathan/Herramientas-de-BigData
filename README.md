@@ -30,9 +30,9 @@ Implementar y ejecutar cada script por separado.
 ## 1) HDFS
 
 Utilizar el entorno docker-compose-v1.yml
-
+````
     sudo docker-compose -f docker-compose-v1.yml up -d
-
+````
 Creamos el contenedor llamado (namenode) y entramos a su carpeta.
 ````
     sudo docker exec -it namenode bash
@@ -59,21 +59,21 @@ Para poder ejecutarlo le damos permiso de ejecucion
     sudo ./Paso00.sh
 ````        
 Ingresamos al contenedor "namenode":
-
+````
     sudo docker exec -it namenode bash
-
+````
 Nos ubicamos en el directorio 'home':
-
+````
     cd home
-    
+````    
 Creamos el directorio 'data':
-
+````
     hdfs dfs -mkdir -p /data
-    
+````   
 Pegamos los archivos csv provistos a HDFS:
-
+````
     hdfs dfs -put /home/Datasets/* /data
-
+````
 Este proceso de creación de la carpeta data y copiado de los arhivos, debe poder ejecutarse desde un shell script.
 
 Nota: Busque dfs.blocksize y dfs.replication en http://<IP_Anfitrion>:9870/conf para encontrar los valores de tamaño de bloque y factor de réplica respectivamente entre otras configuraciones del sistema Hadoop.
@@ -91,10 +91,9 @@ Vamos a utilizar el entorno docker-compose-v2.yml, por lo cual es necesario dete
  ````       
    
 Copiamos el archivo 'Paso02.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
-
+````
     sudo docker cp ./Paso02.hql hive-server:/opt/
-
-         
+````        
 Creamos una conexion interactiva con contenedor llamado "hive-server".Ejecutamos el archivo 'Paso02.hql'.Finalizamos la conexion interactiva.
 ````
     sudo docker exec -it hive-server bash
@@ -110,12 +109,13 @@ Para comprobar que cargo correctamente la base de datos entramos a hive y ejecut
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/254ed713-c805-4fca-bbc9-ac073f1f5f04)
 
 ## 3) Formatos de Almacenamiento
-
+````
     sudo docker-compose -f docker-compose-v2.yml up -d
+````
 El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
-        
+````        
     sudo docker cp ./Paso03.hql hive-server:/opt/
-
+````
 ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar es donde se realizan los pruebas hay que tener paciencia para que se carge el código.Si accedes a la hive en este lugar puedes realizar las consultas y para salir usas con el comando ('exit;' o 'quit')
 ````
     sudo docker exec -it hive-server bash
@@ -134,14 +134,17 @@ ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar e
 La mejora en la velocidad de consulta que puede proporcionar un índice tiene el costo del procesamiento adicional para crear el índice y el espacio en disco para almacenar las referencias del índice. Se recomienda que los índices se basen en las columnas que utiliza en las condiciones de filtrado. El índice en la tabla puede degradar su rendimiento en caso de que no los esté utilizando. Crear índices en alguna de las tablas cargadas y probar los resultados:
 
 Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas se realizan antes de agregar los indices.
-
+````
     SELECT IdProducto, sum(Precio*Cantidad) FROM venta GROUP BY IdProducto;
+````
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/bf2d0e48-e53f-49dd-bcf9-21b11121fa6a)
-
+````
     SELECT Fecha,sum(Cantidad) FROM compra GROUP BY Fecha;
+````
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/0829944a-0e44-4e14-844a-a36d3fef6de7)
-
+````
     SELECT cIdProveedor,p.Nombre FROM compra c JOIN proveedor p USING (IdProveedor);
+````
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/6e5f1788-3e3f-4df3-bbb1-f970fdea6c3d)
 
 
