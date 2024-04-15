@@ -1,48 +1,73 @@
 # Herramientas_de_BigData
-Entorno Docker con Hadoop, Spark y Hive
 
-Implementar y ejecutar cada script por separado el tercer script va ir cambiando conforme cambiemos de formato.
+# Practica Integradora
 
+Durante esta practica la idea es emular un ambiente de trabajo, desde un área de innovación solicitan construir un MVP(Producto viable mínimo) de un ambiente de Big Data donde se deban cargar unos archivos CSV que anteriormente se utilizaban en un datawarehouse en MySQl, pero ahora en un entorno de Hadoop.
+
+Desde la gerencia de Infraestructura no están muy convencidos de utilizar esta tecnología por lo que no se asigno presupuesto alguna para esta iniciativa, de forma tal que por el momento no es posible utilizar un Vendor(Azure, AWS, Google) para implementar dicho entorno, es por esto que todo el MVP se deberá implementar utilizando Docker de forma tal que se pueda hacer una demo al sector de infraestructura mostrando las ventajas de utilizar tecnologías de Big Data.
+
+
+Se pesenta un entorno Docker con Hadoop (HDFS) y la implementación de:
+* Spark
+* Hive
+* HBase
+* MongoDB
+* Neo4J
+* Zeppelin
+* Kafka
+
+
+Es importante mencionar que el entorno completo consume muchos recursos de su equipo, motivo por el cuál, se propondrán ejercicios pero con ambientes reducidos, en función de las herramientas utilizadas.
+
+Implementar y ejecutar cada script por separado. 
+
+    '''
     git clone https://github.com/lopezdar222/herramientas_big_data
     cd herramientas_big_data
     sudo docker-compose -f docker-compose-vX.yml up -d
+    '''
 
-1) HDFS
+##1) HDFS
 
-       sudo docker-compose -f docker-compose-v1.yml up -d
-   
-Creamos el contenedor llamado (namenode) y entramos.
+Utilizar el entorno docker-compose-v1.yml
+
+    sudo docker-compose -f docker-compose-v1.yml up -d
+
+Creamos el contenedor llamado (namenode) y entramos a su carpeta.
         
-        sudo docker exec -it namenode bash
-        cd home 
+    sudo docker exec -it namenode bash
+    
+    cd home 
 
 Crearemos el directorio Datasets y salimos
         
-        mkdir Datasets
-        exit
-Cargamos los archivos en la carpera Datasets, dentro del contenedor "namenode".
+    mkdir Datasets
 
-        sudo docker cp <path><archivo> namenode:/home/Datasets/<archivo>
+    exit
 
-Ejecutar el archivo 'Paso00.sh'.Pero para poder ejecutarlo le damos permiso de ejecucion
+Ejecutar el archivo 'Paso00.sh' el cual contiene los comandos para copiar los archivos desde tu sistema local al contenedor.
+ 
+Para poder ejecutarlo le damos permiso de ejecucion
 
-        chmod u+x Paso00.sh
+    chmod u+x Paso00.sh
+
+    sudo ./Paso00.sh
         
-Crear un directorio en HDFS llamado "/data".
-        
-        hdfs dfs -mkdir -p /data
+Ingresamos al contenedor "namenode":
 
-Ubicarse en el contenedor "namenode".
+    sudo docker exec -it namenode bash
 
-        sudo docker exec -it namenode bash
+Nos ubicamos en el directorio 'home':
 
-Crear un directorio en HDFS llamado "/data".
+    cd home
+    
+Creamos el directorio 'data':
 
-        hdfs dfs -mkdir -p /data
+    hdfs dfs -mkdir -p /data
+    
+Pegamos los archivos csv provistos a HDFS:
 
-Copiar los archivos csv provistos a HDFS:
-
-      hdfs dfs -put /home/Datasets/* /data
+    hdfs dfs -put /home/Datasets/* /data
 
 Este proceso de creación de la carpeta data y copiado de los arhivos, debe poder ejecutarse desde un shell script.
 
@@ -50,28 +75,34 @@ Nota: Busque dfs.blocksize y dfs.replication en http://<IP_Anfitrion>:9870/conf 
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/596a9f3f-0322-4eab-a5b8-71ff7263a386)
 
-2) Hive
-   
-        sudo docker-compose -f docker-compose-v2.yml up -d
-   
-El comando copia el archivo 'Paso02.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
+##2) Hive
 
-         sudo docker cp ./Paso02.hql hive-server:/opt/
+Vamos a utilizar el entorno docker-compose-v2.yml, por lo cual es necesario detener los contenedores anteriores.
+
+    sudo docker stop $(sudo docker ps -a -q)
+        
+   
+    sudo docker-compose -f docker-compose-v2.yml up -d
+        
+   
+Copiamos el archivo 'Paso02.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
+
+    sudo docker cp ./Paso02.hql hive-server:/opt/
 
          
- ubicarse dentro del contenedor, acceder al archivo 'Paso02.hql' y salir
+ Creamos una conexion interactiva con contenedor llamado "hive-server".Ejecutamos el archivo 'Paso02.hql'.Finalizamos la conexion interactiva.
 
-      sudo docker exec -it hive-server bash
-       hive -f Paso02.hql
-       exit
-
-
+    sudo docker exec -it hive-server bash
+      
+    hive -f Paso02.hql
+       
+    exit
 
 Para comprobar que cargo correctamente la base de datos entramos a hive y ejecutamos una query.
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/254ed713-c805-4fca-bbc9-ac073f1f5f04)
 
-3) Formatos de Almacenamiento
+##3) Formatos de Almacenamiento
 
        sudo docker-compose -f docker-compose-v2.yml up -d
 El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
