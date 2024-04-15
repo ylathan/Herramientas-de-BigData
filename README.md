@@ -27,7 +27,7 @@ Implementar y ejecutar cada script por separado.
     sudo docker-compose -f docker-compose-vX.yml up -d
     '''
 
-##1) HDFS
+## 1) HDFS
 
 Utilizar el entorno docker-compose-v1.yml
 
@@ -75,7 +75,7 @@ Nota: Busque dfs.blocksize y dfs.replication en http://<IP_Anfitrion>:9870/conf 
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/596a9f3f-0322-4eab-a5b8-71ff7263a386)
 
-##2) Hive
+## 2) Hive
 
 Vamos a utilizar el entorno docker-compose-v2.yml, por lo cual es necesario detener los contenedores anteriores.
 
@@ -102,7 +102,7 @@ Para comprobar que cargo correctamente la base de datos entramos a hive y ejecut
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/254ed713-c805-4fca-bbc9-ac073f1f5f04)
 
-##3) Formatos de Almacenamiento
+## 3) Formatos de Almacenamiento
 
        sudo docker-compose -f docker-compose-v2.yml up -d
 El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
