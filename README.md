@@ -35,10 +35,10 @@ Utilizar el entorno docker-compose-v1.yml
 
 Creamos el contenedor llamado (namenode) y entramos a su carpeta.
 ````
-        sudo docker exec -it namenode bash
+    sudo docker exec -it namenode bash
 ````
 ````
-        cd home 
+    cd home 
 ````
 
 Crearemos el directorio Datasets y salimos
@@ -95,7 +95,7 @@ Copiamos el archivo 'Paso02.hql' desde tu sistema de archivos local al directori
     sudo docker cp ./Paso02.hql hive-server:/opt/
 
          
- Creamos una conexion interactiva con contenedor llamado "hive-server".Ejecutamos el archivo 'Paso02.hql'.Finalizamos la conexion interactiva.
+Creamos una conexion interactiva con contenedor llamado "hive-server".Ejecutamos el archivo 'Paso02.hql'.Finalizamos la conexion interactiva.
 ````
     sudo docker exec -it hive-server bash
 ````
@@ -111,25 +111,26 @@ Para comprobar que cargo correctamente la base de datos entramos a hive y ejecut
 
 ## 3) Formatos de Almacenamiento
 
-       sudo docker-compose -f docker-compose-v2.yml up -d
+    sudo docker-compose -f docker-compose-v2.yml up -d
 El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
         
-        sudo docker cp ./Paso03.hql hive-server:/opt/
+    sudo docker cp ./Paso03.hql hive-server:/opt/
 
 ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar es donde se realizan los pruebas hay que tener paciencia para que se carge el código.Si accedes a la hive en este lugar puedes realizar las consultas y para salir usas con el comando ('exit;' o 'quit')
 ````
-      sudo docker exec -it hive-server bash
+    sudo docker exec -it hive-server bash
 ````
 ````
-       hive -f Paso03.hql
+    hive -f Paso03.hql
 ````
 ````
-       exit
+    exit
 ````
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/137fdd60-9f2c-433b-b6d3-65ea8083e65a)
 
-4) SQL
+## 4) SQL
+
 La mejora en la velocidad de consulta que puede proporcionar un índice tiene el costo del procesamiento adicional para crear el índice y el espacio en disco para almacenar las referencias del índice. Se recomienda que los índices se basen en las columnas que utiliza en las condiciones de filtrado. El índice en la tabla puede degradar su rendimiento en caso de que no los esté utilizando. Crear índices en alguna de las tablas cargadas y probar los resultados:
 
 Dentro del hive realizamos diferentes consultas y les medimos el tiempo.Estas consultas se realizan antes de agregar los indices.
