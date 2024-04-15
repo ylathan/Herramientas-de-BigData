@@ -34,28 +34,30 @@ Utilizar el entorno docker-compose-v1.yml
     sudo docker-compose -f docker-compose-v1.yml up -d
 
 Creamos el contenedor llamado (namenode) y entramos a su carpeta.
-
-'''
+````
         sudo docker exec -it namenode bash
-'''
-'''
-    cd home 
-'''
+````
+````
+        cd home 
+````
 
 Crearemos el directorio Datasets y salimos
-        
+````        
     mkdir Datasets
-
+````
+````
     exit
+````
 
 Ejecutar el archivo 'Paso00.sh' el cual contiene los comandos para copiar los archivos desde tu sistema local al contenedor.
  
 Para poder ejecutarlo le damos permiso de ejecucion
-
+````
     chmod u+x Paso00.sh
-
+````
+````
     sudo ./Paso00.sh
-        
+````        
 Ingresamos al contenedor "namenode":
 
     sudo docker exec -it namenode bash
@@ -81,12 +83,12 @@ Nota: Busque dfs.blocksize y dfs.replication en http://<IP_Anfitrion>:9870/conf 
 ## 2) Hive
 
 Vamos a utilizar el entorno docker-compose-v2.yml, por lo cual es necesario detener los contenedores anteriores.
-
+````
     sudo docker stop $(sudo docker ps -a -q)
-        
-   
+ ````       
+ ````  
     sudo docker-compose -f docker-compose-v2.yml up -d
-        
+ ````       
    
 Copiamos el archivo 'Paso02.hql' desde tu sistema de archivos local al directorio '/opt/' dentro del contenedor llamado "hive-server".
 
@@ -94,13 +96,15 @@ Copiamos el archivo 'Paso02.hql' desde tu sistema de archivos local al directori
 
          
  Creamos una conexion interactiva con contenedor llamado "hive-server".Ejecutamos el archivo 'Paso02.hql'.Finalizamos la conexion interactiva.
-
+````
     sudo docker exec -it hive-server bash
-      
+````
+````      
     hive -f Paso02.hql
-       
+````
+````       
     exit
-
+````
 Para comprobar que cargo correctamente la base de datos entramos a hive y ejecutamos una query.
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/254ed713-c805-4fca-bbc9-ac073f1f5f04)
@@ -113,10 +117,15 @@ El comando copia el archivo 'Paso03.hql' desde tu sistema de archivos local al d
         sudo docker cp ./Paso03.hql hive-server:/opt/
 
 ubicarse dentro del contenedor, acceder al archivo 'Paso03.hql'  en este lugar es donde se realizan los pruebas hay que tener paciencia para que se carge el código.Si accedes a la hive en este lugar puedes realizar las consultas y para salir usas con el comando ('exit;' o 'quit')
-
+````
       sudo docker exec -it hive-server bash
+````
+````
        hive -f Paso03.hql
+````
+````
        exit
+````
 
 ![image](https://github.com/ylathan/Herramientas-de-BigData/assets/98925562/137fdd60-9f2c-433b-b6d3-65ea8083e65a)
 
