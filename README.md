@@ -34,10 +34,13 @@ Utilizar el entorno docker-compose-v1.yml
     sudo docker-compose -f docker-compose-v1.yml up -d
 
 Creamos el contenedor llamado (namenode) y entramos a su carpeta.
-        
-    sudo docker exec -it namenode bash
-    
+
+'''
+        sudo docker exec -it namenode bash
+'''
+'''
     cd home 
+'''
 
 Crearemos el directorio Datasets y salimos
         
